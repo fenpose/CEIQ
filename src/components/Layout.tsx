@@ -57,7 +57,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onProfileClick, theme, setTheme }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 w-full bg-background border-b border-border shadow-sm px-6 py-4 flex items-center justify-between">
+    <header className="relative z-40 w-full bg-background border-b border-border shadow-sm px-6 py-4 flex items-center justify-between">
       <div className="flex flex-col">
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground line-height-none">AI Инженер</h1>
         <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-widest mt-0.5">Assistant</p>
@@ -85,7 +85,7 @@ const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActive
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen pt-24 transition-colors duration-300">
+    <div className="min-h-screen transition-colors duration-300">
       <Header 
         onProfileClick={() => setActiveTab('profile')} 
         theme={theme} 
@@ -99,7 +99,7 @@ const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActive
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="pb-32"
+            className="pb-32 pt-4 sm:pt-8"
           >
             {children}
           </motion.div>
