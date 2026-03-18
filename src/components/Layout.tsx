@@ -18,7 +18,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2 pointer-events-none flex justify-center">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-2 pointer-events-none flex justify-center translate-z-0">
       <div className="w-full max-w-md glass rounded-2xl flex items-center justify-around p-2 pointer-events-auto shadow-xl">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -57,7 +57,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onProfileClick, theme, setTheme }) => {
   return (
-    <header className="sticky top-0 z-40 w-full glass border-b-0 border-transparent px-6 py-4 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/50 px-6 py-4 flex items-center justify-between">
       <div className="flex flex-col">
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">AI Инженер</h1>
         <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-widest">Assistant</p>
@@ -81,17 +81,29 @@ const Header: React.FC<HeaderProps> = ({ onProfileClick, theme, setTheme }) => {
   );
 };
 
+const Footer: React.FC = () => {
+  return (
+    <footer className="w-full py-12 pb-32 flex flex-col items-center justify-center gap-4 text-center border-t border-border/50 mt-12">
+      <div className="flex flex-col">
+        <h2 className="text-xl font-bold text-foreground opacity-50">AI Инженер</h2>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] mt-1">Professional Assistant</p>
+      </div>
+      <p className="text-xs text-muted-foreground/40">© 2026 Все права защищены</p>
+    </footer>
+  );
+};
+
 const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActiveTab: (tab: string) => void }> = ({ children, activeTab, setActiveTab }) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen pb-24 transition-colors duration-300">
+    <div className="min-h-screen pt-20 transition-colors duration-300">
       <Header 
         onProfileClick={() => setActiveTab('profile')} 
         theme={theme} 
         setTheme={setTheme} 
       />
-      <main className="max-w-4xl mx-auto px-6 pt-8 sm:pt-12">
+      <main className="max-w-4xl mx-auto px-6 pt-4 sm:pt-8 min-h-[calc(100vh-80px)]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -101,6 +113,7 @@ const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActive
             transition={{ duration: 0.2 }}
           >
             {children}
+            <Footer />
           </motion.div>
         </AnimatePresence>
       </main>
