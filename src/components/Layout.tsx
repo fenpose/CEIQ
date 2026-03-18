@@ -57,10 +57,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onProfileClick, theme, setTheme }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/50 px-6 py-4 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-40 w-full bg-background border-b border-border shadow-sm px-6 py-4 flex items-center justify-between">
       <div className="flex flex-col">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">AI Инженер</h1>
-        <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-widest">Assistant</p>
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground line-height-none">AI Инженер</h1>
+        <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-widest mt-0.5">Assistant</p>
       </div>
       <div className="flex items-center gap-2 sm:gap-4">
         <button
@@ -81,29 +81,17 @@ const Header: React.FC<HeaderProps> = ({ onProfileClick, theme, setTheme }) => {
   );
 };
 
-const Footer: React.FC = () => {
-  return (
-    <footer className="w-full py-12 pb-32 flex flex-col items-center justify-center gap-4 text-center border-t border-border/50 mt-12">
-      <div className="flex flex-col">
-        <h2 className="text-xl font-bold text-foreground opacity-50">AI Инженер</h2>
-        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] mt-1">Professional Assistant</p>
-      </div>
-      <p className="text-xs text-muted-foreground/40">© 2026 Все права защищены</p>
-    </footer>
-  );
-};
-
 const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActiveTab: (tab: string) => void }> = ({ children, activeTab, setActiveTab }) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen pt-20 transition-colors duration-300">
+    <div className="min-h-screen pt-24 transition-colors duration-300">
       <Header 
         onProfileClick={() => setActiveTab('profile')} 
         theme={theme} 
         setTheme={setTheme} 
       />
-      <main className="max-w-4xl mx-auto px-6 pt-4 sm:pt-8 min-h-[calc(100vh-80px)]">
+      <main className="max-w-4xl mx-auto px-6 h-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -111,9 +99,9 @@ const Layout: React.FC<{ children: React.ReactNode, activeTab: string, setActive
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
+            className="pb-32"
           >
             {children}
-            <Footer />
           </motion.div>
         </AnimatePresence>
       </main>
